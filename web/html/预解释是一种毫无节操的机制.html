@@ -6,9 +6,59 @@
 </head>
 <body>
 <script>
-    var obj = {name: "张三丰", age: 140};
-    console.log("name" in obj);//true
-    console.log("eat" in obj);//false
+    /*var obj = {name: "张三丰", age: 140};
+     console.log("name" in obj);//true
+     console.log("eat" in obj);//false*/
+
+    /*//不管条件是否成立，都要把带var的进行预解释
+     if(!("num" in window)){
+     var num = 12;
+     }
+     console.log(num);*/
+
+    /*//匿名函数
+     //预解释的时候，只预解释“=”左边的，右边的值不进行预解释
+     fn();//Uncaught TypeError: fn is not a function
+     var fn = function () {
+     console.log("ok");
+     }*/
+
+    /*//自执行函数:定义与执行一起完成
+     //自执行函数的function不进行预解释
+     (function (num) {
+     console.log(num);
+     })(100);*/
+
+    /*//函数体中return 后面的代码虽然不执行，但是会进行预解释;return 后面的都是返回值，所以不进行预解释
+     function fn() {
+     console.log(num);//undefined
+     return function () {
+
+     };
+     var num = 100;
+     }
+     fn();*/
+
+    /*//预解释的时候，如果名字已经声明过了，不需要重新声明，但是需要重新赋值。
+    //在JS中，如果变量名和函数名相同的话，也算命名冲突。
+    fn();//ok
+    var fn = 13;
+    function fn() {
+        console.log("ok");
+    }*/
+
+    fn();//200
+     function fn() {
+     console.log(100);
+     }
+     fn();//200
+     var fn = 12;
+     fn();//Uncaught TypeError: fn is not a function
+     function fn() {
+     console.log(200)
+     }
+     fn();
+
 </script>
 </body>
 </html>
