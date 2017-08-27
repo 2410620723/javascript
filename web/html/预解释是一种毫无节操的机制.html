@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>预解释是一种毫无节操的机制</title>
+</head>
+<body>
+<script>
+    var obj = {name: "张三丰", age: 140};
+    console.log("name" in obj);//true
+    console.log("eat" in obj);//false
+</script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域链</title>
+</head>
+<body>
+<script>
+    //1、如何区分全局变量和私有变量
+    //1）在全局作用域下声明（预解释的时候）的变量是全局变量；
+    //2）在“私有作用域中声明的变量和“函数的形参””都是私有的变量
+    //在私有作用域中，我们执行代码的时候遇到一个变量；首先，我们需要确认它是否是一个私有的变量，如果是私有的变量，
+    // 那么它和外面的变量没有任何关系；如果不是，则往当前作用域的上级作用域进行查找，如果上级作用域没有，则继续向上级作用域查找，
+    //一直找到window为止。
+
+    //2、当函数执行的时候（直接目的：让函数体中的代码执行），首先会形成一个新的私有作用域，然后按照如下步骤执行：
+    //1）如果有形参，先给形参赋值
+    //2）进行私有作用域的预解释
+    //3）私有作用域中的代码从上到下执行
+    //函数形成了一个新的私有作用域，保护了里面私有的变量不受外界的干扰（外面修改不了私有的，私有的也修改不了外面的）-> 闭包
+    /*console.log(total);
+    var total = 0;
+    function sum(num1, num2) {
+        console.log(total);//total私有变量，undefined
+        var total = num1 + num2;//num1,num2私有变量
+        console.log(total);//total私有变量，300
+    }
+    sum(100,200);
+    console.log(total);//全局作用域，0*/
+
+    console.log(total);//undefined
+    var total = 0;
+    function sum(num1, num2) {
+        console.log(total);//0
+        total = num1 + num2;//num1,num2私有变量
+        console.log(total);//total全局变量，300
+    }
+    sum(100,200);
+    console.log(total);//全局作用域，300
+</script>
+</body>
+</html>

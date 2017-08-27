@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>全局变量的细节问题</title>
+</head>
+<body>
+<script>
+    /*console.log(num);//undefined
+     var num = 12;
+
+     console.log(num2);//Uncaught ReferenceError: num2 is not defined
+     num2 = 5;*/
+
+    /*//关系：num2 = 12，相当于给window加一个叫做num2的属性名，属性值为12；
+     //var num = 12，不仅是给全局作用域增加了一个全局变量，而且也相当于给window添加了一个叫做num的属性名，属性值为12
+     var num = 12;
+     console.log(num);
+     num2 = 12;
+     console.log(num2);*/
+
+    function fu() {
+        //console.log(num);//获取值时：num不是私有的，它会向上查找，一直找到window为止，如果没找到，则会报错
+        num = 100;//设置值：在window下也没找到的话，也不会报错
+    }
+    fu();
+    console.log(num);//num = 100
+</script>
+</body>
+</html>
