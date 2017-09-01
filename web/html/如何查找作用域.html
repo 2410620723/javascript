@@ -13,12 +13,12 @@
             console.log(num);
         };
     }
-    var f = fn();
-    f();
+    var f = fn();//将fn的返回值赋值给f
+    f();//120
     ~function () {
         var num = 1200;
         f();
-    }();
+    }();//120
 </script>
 </body>
 </html>
