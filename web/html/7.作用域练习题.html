@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>作用域练习题</title>
+</head>
+<body>
+<script>
+    function fn() {
+        var i = 10;
+        return function (n) {
+            console.log(n + (++i));
+        }
+    }
+     var f = fn();//将fn的执行结果赋值给f，fn的堆内存不会销毁
+    f(10);//21
+    f(20);//32
+    fn()(10);//21，fn执行，形成一个新的私有作用域，没有变量接受，暂时不销毁，当返回值再次执行后会被销毁，当前的堆内存与之前的堆内存不一样。
+    fn()(20);//31
+</script>
+</body>
+</html>
