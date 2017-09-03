@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>单例模式</title>
+</head>
+<body>
+<script>
+    var name = "尹芝华";
+    var age = 20;
+    var name = "王小波";
+    var age = 25;
+    console.log(name);
+
+    //对象数据类型作用：
+    //把描述同一事物（同一对象）的属性和方法放在一个内存空间下，起到分组作用，这样不同事物之间的属性即使属性名相同，相互也不会发生冲突，我们称这种模式叫做“单例模式”。
+    //在单例模式中，我们称person1、person2为命名空间。
+    var person1 = {
+        name: "尹芝华",
+        age: 20
+    };
+    var person2 = {
+        name: "王小波",
+        age: 25
+    };
+    console.log(person1.name);
+    console.log(person2.age);
+
+    //单例模式是一种常用的开发模式，因为我们在项目中可以使用单用模式来进行模块化开发。
+
+    //公共模块
+    var utils = {
+        select: function () {
+
+        }
+    };
+
+    //页卡模块中的change（页卡切换）
+    var tabRender = {
+        change: function () {
+            utils.select();//调用公共模块
+        }
+    };
+    //搜索模块
+    var searchRender = {
+        change: function () {
+            this.clickEvent();//在自己命名空间中调用自己的方法
+        },
+        clickEvent: function () {
+
+        }
+    };
+</script>
+</body>
+</html>
