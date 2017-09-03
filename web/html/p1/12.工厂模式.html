@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>工厂模式</title>
+</head>
+<body>
+<script>
+    //把实现同一件事情的相同代码放到一个函数中，以后如果再想实现这个功能，不需要重新编写这些代码，只需要执行当前函数即可（函数封装）
+    //“低耦合高内聚”，减少页面中冗余代码，提高代码利用率。
+    function createJsPerson(name, age) {
+        var obj = {};
+        obj.name = name;
+        obj.age = age;
+        obj.writeJs = function () {
+            console.log("my name is " + this.name +",I can write js");
+        };
+        return obj;
+    }
+    var p1 = createJsPerson("尹华芝",25);
+    p1.writeJs();
+
+    //js中没有重载，方法名一样的话，后面的会把前面的覆盖掉。
+    //js中有一个操作类似重载但不是重载：我们可以根据传递的参数的不一样，实现不同的功能。
+    function sum(num) {
+        if(typeof num ==="undefined"){
+            return 0;
+        }
+        return num;
+    }
+    sum(100);
+    sum();
+</script>
+</body>
+</html>
