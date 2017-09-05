@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>构造函数模式(基础) </title>
+</head>
+<body>
+<script>
+    //构造函数的目的：就是为了创建一个自定义类，并且创建这个类的实例
+    function CreatePerson(name, age) {
+        this.name = name;//this -> 当前类的实例
+        this.age = age;
+        this.writeJs = function () {
+            console.log("my name is " + this.name+",my age is " + this.age);
+        }
+    }
+    var p1 = new CreatePerson("尹华芝",20);//构造函数模式执行
+    p1.writeJs();
+    var p2 = new CreatePerson("张三丰",150);
+    p2.writeJs();
+    console.log(p1.writeJs===p2.writeJs);
+    //构造函数模式与工厂模式的区别：
+    //1.执行的时候：普通函数执行 -> createPerson()；构造函数执行 -> 通过new关键字
+
+    //JS中所有的类都是函数数据类型，JS中所有的实例都是对象数据类型的。
+    //每个实例之间都是不一样的
+
+    var res = CreatePerson("珠峰",7);//undefined，普通函数模式执行，方法中的this是window
+</script>
+</body>
+</html>
