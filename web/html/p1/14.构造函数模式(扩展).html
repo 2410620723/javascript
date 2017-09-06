@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>构造函数模式（扩展）</title>
+</head>
+<body>
+<script>
+    /*function Fn() {
+     this.x = 100;//this -> 当前类的实例
+     this.getX = function () {
+     console.log(this.x);
+     }
+     }
+     var f1 = new Fn;//在构造函数中，如果Fn不需要参数的话，后面的括号可以省略。
+     //this 问题：在类中出现的this.xxx中的this都是当前类的实例；
+     // 而某个属性值（方法）中的this需要看执行的时候，前面有没有“.”才知道this是谁。
+     f1.getX();//100;this -> f1
+     var ss = f1.getX;
+     ss();//undefined;this -> window*/
+
+
+    /*function Fn() {
+     var num = 10;
+     this.x = 100;//this -> 当前类的实例
+     this.getX = function () {
+     console.log(this.x);
+     }
+     }
+     var f1 = new Fn;
+     //类有普通函数的一面，当函数执行的时候，var num只是当前私有作用域中的一个私有变量，它和我们的
+     //f1这个实例没有任何关系；只有this.xxx=xxx才相当于给这个实例增加私有的属性和方法，才会和实例有关系。
+     console.log(f1.num);//undefined*/
+
+    /*function Fn() {
+        this.x = 100;
+        this.getX = function () {
+            console.log(this.x);
+        }
+        //return 100;
+        return {name: "珠峰"};
+    }
+    var f1 = new Fn();
+    console.log(f1);
+    //在构造函数中，浏览器会默认返回一个实例对象，如果是手动return返回的话，
+    //1.返回的是基本数据类型，当前实例是不变的。例如 return 100；
+    //2.返回的是一个引用数据类型，当前实例会被自己的返回值覆盖，例如：return {name: "珠峰"};*/
+
+    /*function Fn() {
+        this.x = 100;
+        this.getX = function () {
+            console.log(this.x);
+        }
+    }
+    var f1 = new Fn;
+    //检测某一个实例是否属于这个类 -> instanceof
+    console.log(f1 instanceof Fn);//true
+    console.log(f1 instanceof Array);//false
+    //所有的实例都是对象数据类型，而每个对象数据类型都是Object这个类的一个实例
+    console.log(f1 instanceof Object);//true
+    //对于检测数据类型来说，typeof有它的局限性，不能细分object下的对象、数组、正则……
+    var a = [];
+    console.log(typeof a);
+    console.log(a instanceof Array);*/
+
+    function Fn() {
+        this.x = 100;
+        this.getX = function () {
+            console.log(this.x);
+        }
+    }
+    var f1 = new Fn;
+    var f2 = new Fn;
+    console.log(f1.getX===f2.getX);//false
+
+    //in:检测某个属性是否属于某个对象，不管它是私有的属性还是共有的属性，检测结果都是true。
+    console.log("getX" in f1);//true
+    //检测某个属性是否为这个对象的私有属性。
+    console.log(f1.hasOwnProperty("getX"));//true
+    console.log(hasPubProperty(f1,"getX"));//false
+    function hasPubProperty(obj, attr) {
+        return (attr in obj) && !obj.hasOwnProperty(attr);
+    }
+
+</script>
+</body>
+</html>
