@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--viewport:视口
+        width=device-width:设置视口的宽度为设备的宽度，如果不设置的话，默认的宽度是980px；
+        通过js动态添加viewport
+        var oMeta = document.createElement("meta");
+    oMeta.name = "viewport";
+    oMeta.content = "width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0,minimum-scale=1.0";
+    document.head.appendChild(oMeta);
+    user-scalable=no:禁止用户手动缩放
+    initial-scale,minimum-scale,maximum-scale:设置初始化、最小、最小的缩放比例。
+    高清屏：
+    苹果手机是两倍的高清屏，也就是说，我们在手机上看到的那张100*100图片在苹果手机上是按照200*200进行渲染的，所以最后显示出来的是，被拉伸放大后的图片。
+
+    DPI适配思想：
+    我们在做页面的时候，每张图片最好准备两到三套，比如：
+    logo.png 100*100
+    logo@2x:200*200
+    logo@3x:300*300
+    媒体查询：@media
+    ->媒体设备：all所有设备 screen 所有屏幕设备（PC+移动端），print 打印设备……
+    ->媒体条件：指定在什么样的条件下执行对应的样式。
+    @media all and (max-width:319px){
+        //->宽度小于320px
+    }
+    @media all and (min-width:320px) and (max-width:359px){
+        //>=320px <360px
+    }
+
+
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+        maximum-scale=1.0, user-scalable=no,minimum-scale=1.0">
+    <title>响应式布局基础</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        html,body{
+            width: 100%;
+            overflow-x: hidden;
+        }
+        .box{
+            height:150px;
+            margin: 0 10px;
+            background: url("img/image.jpg") no-repeat;
+            background-size: cover;
+            border: 5px solid #000;
+        }
+        @media all and (-webkit-device-pixel-ratio: 2){/*2倍屏*/
+            .box{
+                background: url("img/image@2x.jpg") no-repeat;
+                background-size: cover;
+                border: 5px solid #f00;
+            }
+        }
+        @media all and (-webkit-device-pixel-ratio: 3){/*3倍屏*/
+            .box{
+                background: url("img/image@3x.jpg") no-repeat;
+                background-size: cover;
+                border: 5px solid #0f0;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="box"></div>
+</body>
+<!--
+响应式布局的解决方案：
+1）流式布局法：盒子或容器的宽度不写固定值，而是使用百分比（相对于视口区域的百分比）。
+
+
+
+-->
+</html>
