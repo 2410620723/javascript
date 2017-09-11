@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链模式(基础)</title>
+</head>
+<body>
+<!--构造函数模式中拥有了类和实体的概念，并且实体和实体之间独立-实体识别。-->
+<!--基于构造函数模式的原型链模式解决了方法或属性共有的问题，把实体中相同的属性和方法提取成公有的属性和方法。-->
+<script>
+    /*function CreatePerson(name, age) {
+        this.name = name;//this -> 当前类的实例
+        this.age = age;
+    }
+    CreatePerson.prototype.writeJs = function(){
+        console.log("my name is " + this.name+",my age is " + this.age);
+    }
+
+    var p1 = new CreatePerson("张三",25);
+    var p2 = new CreatePerson("李四",26);
+    console.log(p1.writeJs===p2.writeJs);//true*/
+
+    //1.每一个函数类型（普通函数、类）都有一个天生自带属性prototype（原型）
+    //并且这个属性是一个对象数据类型。
+    //2.在prototype上，浏览器自动给它添加一个属性constructor（构造函数），函数值是当前函数（类）本身。
+    //3.每一个对象数据类型（普通对象、实例、prototype……）也天生自带一个属性__proto__,属性值是当前实例属性的原型（prototype）。
+
+    function Fn() {
+        this.x = 100;
+    }
+    Fn.prototype.getX = function () {
+        console.log(this.x);
+    }
+    var f1 = new Fn();
+    var f2 = new Fn();
+    f1.getX();
+    console.log(Fn.prototype.constructor===Fn)//当前函数本身true
+    //Object 是js中所有对象数据类型的基类（最顶层的类）
+
+    console.log(f1.getX===f2.getX);//true
+    console.log(f1.__proto__===f2.__proto__);//true
+    console.log(f1.getX === Fn.prototype.getX);//true
+
+</script>
+</body>
+</html>
