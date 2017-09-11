@@ -1,0 +1,79 @@
+html,body{
+    width: 100%;
+    overflow-x: hidden;
+}
+a{
+    color: #000;
+}
+a:hover,a:active{
+    color: #000;
+}
+.con{
+    width: 960px;
+    margin: 0 auto;
+}
+
+/*header*/
+.header,.headerBg{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 89px;
+    overflow: hidden;
+}
+.header{
+    box-shadow: 0 1px 1px 0 #bbb;
+}
+.header{
+    height: 89px;
+    z-index: 10;
+}
+.headerBg{
+    z-index: 9;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+    background: #000;
+}
+.header .logo{
+    float: left;
+    width: 270px;
+    height: 51px;
+    margin-top: 19px;
+    font-size: 0;
+}
+
+.header .logo img{
+    width: 270px;
+    height: 51px;
+}
+.header .nav{
+    float: right;
+}
+.header .nav li{
+    float: left;
+}
+.header .nav li a{
+    position: relative;
+    display: block;
+    padding: 0 30px;
+    height: 89px;
+    line-height: 89px;
+    color: #f4f4f4;
+}
+.header .nav li.bg a{
+    color: #fff;
+}
+.header .nav li a li{
+    position: absolute;
+    width: 100%;
+    height: 89px;
+    background: #000;
+    opacity: 0.1;
+    filter: alpha(opacity=10);
+}
+/*BANNER*/
+.banner{
+    height: 490px;
+    background: #ff6900;
+}

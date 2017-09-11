@@ -29,7 +29,7 @@ h4,h5,h6{
     font-size: 100%;
 }
 /*重置列表元素*/
-ul ol{
+ul,ol{
     list-style: none;
 }
 /*重置链接元素*/
