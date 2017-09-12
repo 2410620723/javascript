@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链模式(扩展-this和原型扩展)</title>
+</head>
+<body>
+在原型链模式中，this常用的有两种情况：
+1.在类中this.xxx=xxx；this是指当前类的实例；
+2.在某一个方法中，调用的“.”前面是谁就是谁,
+1)需要确定this的指向（this是谁），
+2)把this替换成对应的代码，
+3)按照原型链查找机制，一步步查找结果。
+<script>
+    function Fn() {
+        this.x = 100;
+        this.y = 200;
+        this.getY = function () {
+            console.log(this.y);
+        };
+    }
+    Fn.prototype = {
+        constructor : Fn,
+        y : 300,
+        getX : function () {
+            console.log(this.x);
+        },
+        getY : function () {
+            console.log(this.y);
+        }
+    };
+    var f = new Fn;
+    f.getX();//100
+    f.__proto__.getX();//undefined this是指f.__proto__在prototype中没有x
+    Fn.prototype.getX();//undefined
+    f.getY();//200
+    f.__proto__.getY();//300
+
+    //数组去重
+    Array.prototype.myUnique = function () {
+        var obj = {};
+        for (var i=0;i<this.length;i++){
+            var cur = this[i];
+            if(obj[cur] == cur){
+                this[i] = this[this.length-1];
+                this.length--;
+                i--;
+                continue;
+            }
+            obj[cur] = cur;
+        }
+        obj = null;
+        return this;//返回当前实例，实现链式写法。
+    };
+    var arr = [12,23,23,13,12,12,13,23,13,12];
+    arr.myUnique().sort(function (a, b) {
+        return a-b;
+    });
+    /*arr.sort(function (a, b) {
+        return a-b;
+    }).reverse().pop();//链式写法（执行完数组的一个方法后，可以紧接着执行下一个方法）
+    //原理：
+    //arr为什么能调用sort方法？因为sort是Array.prototype上公有的方法，而数组arr是Array这个类的一个实例，所以arr可以使用sort，
+    // 数组才能使用Array原型上的方法和属性。
+    //sort执行完成之后返回值是一个排序后的数组；
+    //reverse执行完成后返回的是一个数组，可以继续执行；
+    //pop执行完成后返回的是删除的那个元素，不是数组。*/
+
+    console.log(arr);
+//    arr.myUnique();//this->arr
+//    console.log(arr);
+//    arr.prototype.myUnique();//this->arr.prototype
+</script>
+</body>
+</html>
