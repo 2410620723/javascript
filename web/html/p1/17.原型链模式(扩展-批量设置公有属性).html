@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>原型链模式(扩展-批量设置公有属性)</title>
+</head>
+<body>
+<script>
+    /*function Fn() {
+        this.x = 100;
+    }
+    //1.起别名
+    var pro = Fn.prototype;//把原来原型指向的地址赋值给变量pro
+    pro.getX = function () {
+
+    };
+    pro.getY = function () {
+
+    };*/
+
+    //2.重构原型对象的方式 - 自己开辟一个堆内存，存储我们公有属性
+    function Fn() {
+        this.x = 100;
+    }
+    Fn.prototype = {
+        constructor:Fn,
+        a:function () {
+
+        },
+        b:function () {
+
+        }
+    };
+    var f1 = new Fn;
+    f1.a();
+    f1.b();
+    //只有浏览器天生给Fn.prototype开辟的堆内存里面才有constructor，而我们自己开辟的这个堆内存里面没有这个属性，所以constructor指向Object。
+    //需要手动添加constructor。
+    console.log(f1.constructor);
+
+    //用这种方式给内置类添加公有属性
+    //给数组Array增加去重的方法
+    Array.prototype={
+        constructor:Array,
+        unique:function () {
+
+        }
+    };
+    console.dir(Array.prototype);
+    //这种方式会把之前已经存在于原型上的属性和方法给覆盖掉，所以用这种方式修改内置类的话，会被浏览器屏蔽。
+    //我们可以一个一个的修改内置类的方法，当我们以下述方法在数组原型链中添加方法时，如果方法名与内置的重名了，则会覆盖掉原来的方法，
+    // 所以我们在内置类原型上增加方法时，命名需要加特殊的前缀。
+    Array.prototype.sort = function () {
+        console.log("ok");
+    };
+    var arr = [12,23,23,13,12,12,13,23,13,12];
+    arr.unique();
+    arr.sort();
+    console.log(arr);//Array的原型上的sort方法被覆盖了，所以不会进行排序了。
+</script>
+</body>
+</html>
