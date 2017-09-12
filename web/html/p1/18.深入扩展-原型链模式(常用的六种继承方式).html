@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深入扩展-原型链模式(常用的六种继承方式)</title>
+</head>
+<body>
+<!--<script>
+    /*Object.prototype.aaa = function () {
+
+    };
+    var obj = {name:"珠峰",age:25};
+    /!*for (var key in obj){
+        console.log(obj[key]);
+    }*!/
+    //for in 循环的时候，可以把自己私有的和在所属类的原型上扩展的属性和方法都可以遍历，但是一般情况下，
+    // 我们遍历一个对象只需要遍历私有的即可，可以使用以下方法进行判断。
+    for (var key in obj){
+        if(obj.propertyIsEnumerable(key)){//可枚举与不可枚举
+            console.log(key);
+        }
+        if(obj.hasOwnProperty(key)){
+            console.log(key);
+        }
+    }*/
+
+    function Fn() {
+
+    }
+    var obj = {
+        constructor:Fn,
+        getX : function () {
+
+        }
+    };
+    var obj2 = {};
+    for (var key in obj){
+        if(obj.hasOwnProperty(key)){
+            obj2[key] = obj[key];
+        }
+    }
+    var obj3 = Object.create(obj);
+    console.dir(obj);
+    console.dir(obj2);
+    console.dir(obj3);
+</script>-->
+Object create(proto)方法:创建一个新对象，但是还要把proto作为这个对象的原型，在IE8及以下中不兼容。
+<script>
+    var obj = {
+        getX:function () {
+            console.log(1);
+        }
+    };
+    var obj2 = Object.create(obj);
+    obj2.getX();
+    obj.getY = function () {
+        console.log(2);
+    };
+    obj2.getY();
+</script>
+</body>
+</html>
