@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取数组最大值</title>
+</head>
+<body>
+<script>
+    //取数组最值
+    /*var arr = [12,23,34,24,15,14,25,36];
+    //1.先给数组排序，然后取第一个元素、最后一个元素
+    arr.sort(function (a, b) {
+        return a-b;
+    });
+    console.log(arr[0]);
+    console.log(arr[arr.length-1]);*/
+
+    /*//2.假设法，假设第一元素是最大值
+    var arr = [12,23,34,24,15,14,25,36];
+    var max = arr[0],min = arr[0];
+    for(var i=1;i<arr.length;i++){
+        var cur = arr[i];
+        cur>max?max = cur:null;
+        cur<min?min = cur:null
+    }
+    console.log(min,max);*/
+
+    /*var arr = [12,23,34,24,15,14,25,36];
+     //eval:将字符串转换成js表达式执行
+     //console.log(eval(arr.toString()));//36 -> 只取最后一个元素
+     console.log(eval("Math.min("+arr.toString()+")"));
+     console.log(eval("Math.max("+arr.toString()+")"));*/
+
+    //apply方法
+    var arr = [12,23,34,24,15,14,25,36];
+    var min = Math.min.apply(null,arr);
+    var max = Math.max.apply(null,arr);
+    console.log(min,max);
+
+</script>
+</body>
+</html>
