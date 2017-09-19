@@ -6,7 +6,7 @@
 </head>
 <body>
 <script>
-    //预解释，会对var定义的变量进行声明，不进行定义（赋值）
+    /*//预解释，会对var定义的变量进行声明，不进行定义（赋值）
     //预解释，会对function 函数进行声明与定义
     console.log(num);
     var num = 10;
@@ -14,7 +14,16 @@
     console.log(sum(3, 2));
     function sum(num1, num2) {
         return num1 + num2;
+    }*/
+    alert(a);
+    a();
+    var a = 3;
+    function a() {
+        alert(10);
     }
+    alert(a);
+    a = 6;
+    a();
 </script>
 </body>
 </html>
