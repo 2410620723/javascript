@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取平均数</title>
+</head>
+<body>
+<script>
+    /*function avgFn() {
+        //arguments是类数组，不能直接使用数组的方法
+        //arguments.sort();//Uncaught TypeError: arguments.sort is not a function
+        var ary = [];
+        for (var i=0;i<arguments.length;i++){
+            ary[ary.length] = arguments[i];
+        }
+        ary.sort(function (a, b) {
+            return a-b;
+        });
+        ary.shift();
+        ary.pop();
+        return eval(ary.join("+"))/ary.length;
+    }
+    var avg = avgFn(9.0,9.5,9,4,9.2,9.6,9.8,9.3);
+    console.log(avg.toFixed(2));//9.27*/
+
+    /*//优化
+    function avgFn() {
+        //利用数组原型上的slice方法将arguments转换成数组
+        var ary = Array.prototype.slice.call(arguments);
+        ary.sort(function (a, b) {
+            return a-b;
+        });
+        ary.shift();
+        ary.pop();
+        return eval(ary.join("+"))/ary.length;
+    }
+    var avg = avgFn(9.0,9.5,9,4,9.2,9.6,9.8,9.3);
+    console.log(avg.toFixed(2));//9.27*/
+
+    function avgFn() {
+        Array.prototype.sort.call(arguments,function (a, b) {
+            return a-b;
+        });
+        [].shift.call(arguments);
+        [].pop.call(arguments);
+        console.log(arguments);
+        return eval([].join.call(arguments,"+"))/arguments.length;
+    }
+    var avg = avgFn(9.0,9.5,9,4,9.2,9.6,9.8,9.3).toFixed(2);
+    console.log(avg);
+
+</script>
+</body>
+</html>
