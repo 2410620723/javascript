@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>将类数组转换成数组</title>
+</head>
+<body>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+<script>
+    /*var oList = document.getElementsByTagName("div");
+    console.dir(oList);//HTMLCollection(5)
+    oList = document.getElementsByName("zhu");
+    console.dir(oList);//NodeList(0)*/
+
+    var oList = document.getElementsByTagName("div");
+    var arr = Array.prototype.slice.call(oList);
+    //IE6-8中不支持使用slice将元素集合类数组转换成数组，但是对于arguments支持
+    console.dir(arr);//Array(5)
+</script>
+浏览器异常检测<br>
+在JS中使用try-catch来捕获
+<script>
+    /*console.log(num);//Uncaught ReferenceError: num is not defined。本行代码出错，代码将不会继续执行
+    console.log("ok");*/
+    try {
+        console.log(num);//报错了不会影响下面代码执行
+    } catch(e) {
+        console.log(e.message);//查看报错信息
+        //手动抛出异常终止代码运行
+        throw new Error("网络异常，请稍后再试～～");
+        /*new ReferenceError();
+        new TypeError();
+        new RangeError();*/
+    } finally {
+        //不管try中的代码是否执行，此处的代码都执行
+    }
+    console.log("ok");
+</script>
+将类数组转换成数组
+<script>
+    //单例模式
+    var utils = {
+        listToArray:function (likeArr) {
+            var arr = [];
+            try {
+                arr = Array.prototype.slice.call(likeArr);
+            } catch (e){
+                for(var i=0;i<likeArr.length;i++){
+                    arr[arr.length] = likeArr[i];
+                }
+            }
+            return arr;
+        }
+    };
+</script>
+</body>
+</html>
