@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>sort深入研究</title>
+</head>
+<body>
+<script>
+    /*//一维数组
+    var arr = [12,13,56,48,51,18,20,32,15];
+    arr.sort(function (a, b) {
+        //a:每次执行匿名函数的时候，找到数组的当前项
+        //b:当前项的后一项
+        return a-b;//升序，如果a大于b，返回的>0，a和b交换位置
+        //return的是一个>/<=0的数，大于0就让a和b交换位置，否则位置不变。
+    });
+    console.log(arr);
+    arr.sort(function (a, b) {
+        return 1;//无论a与b的大小如何，a和b都交换顺序；相当于将数组反转(reverse()方法)。
+    });
+    console.log(arr);*/
+
+    /*//回调函数，把一个方法A当作参数传递给另一个方法B，然后在B执行的过程中，我们需要根据需求让A方法执行。
+    function A() {
+
+    }
+    function B(fn) {
+        fn();
+    }
+    B(A);*/
+
+    var ary = [
+        {name:"张三丰",age:23},
+        {name:"周芷若",age:25},
+        {name:"赵敏",age:21}
+    ];
+    //二维数组排序，按照年龄从小到大进行排序
+    /*ary.sort(function (a, b) {
+       return parseInt(a.age)-parseInt(b.age);
+    });
+    console.log(ary);*/
+    /*//二维数组排序，按照年龄从大到小进行排序
+    ary.sort(function (a, b) {
+        return -(parseFloat(a.age)-parseFloat(b.age));
+    });
+    console.log(ary);*/
+    ary.sort(function (a, b) {
+        return -(a.name.localeCompare(b.name));
+    });
+    console.log(ary);
+
+</script>
+</body>
+</html>
