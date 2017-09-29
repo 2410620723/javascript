@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>JSON及操作</title>
+</head>
+<body>
+JSON不是一个单独的数据类型，而是一种特殊的数据格式，它是对象数据类型。<br>
+相对于普通格式对象来说，只是把属性名用双引号包起来。<br>
+在window浏览器对象中，提供了一个叫JSON的属性，它里面提供了两个方法：<br>
+1)JSON.parse()<br>
+2)JSON.stringify()<br>
+IE6-7浏览器中，window下没有JSON对象。
+<script>
+    //普通格式的对象
+    var obj = {
+        name:"珠峰",
+        age:30
+    };
+    console.log(obj);
+    //JSON格式的对象
+    var jsonObj = {
+        "name":"珠峰",
+        "age":30
+    };
+    //JSON.parse(),将JSON格式的字符串转换为JSON格式对象
+    var strObj = '{"name":"珠峰","age":30}';
+    console.log(JSON.parse(strObj));
+    //JSON.stringify()，将JSON格式的对象转换为字符串
+    var JSONStr = JSON.stringify(jsonObj);
+    console.log(JSONStr);
+
+    //将JSON格式的字符串转换成JSON对象
+    var str = '{"name":"珠峰","age":30}';
+    eval("("+str+")");//一定要手动添加一个小括号
+
+</script>
+</body>
+</html>

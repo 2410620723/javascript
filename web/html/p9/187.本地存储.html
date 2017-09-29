@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>本地存储</title>
+</head>
+<body>
+在客户端是不能操作用户电脑磁盘文件的（保护客户端运行的安全）。<br>
+1.js的本地存储<br>
+使用js向浏览器的某个位置中存储一些内容，浏览器关闭了，存储信息也不会销毁，重新打开浏览器依然可以获取这些信息。<br>
+本地存储的方案：<br>
+1）传统方案：<br>
+    cookie：把信息存储到客户端的浏览器中，但是项目的服务器也可以获取cookie<br>
+    session（服务器存储）：把信息存储到服务器中<br>
+2）HTML5：WebStorage<br>
+    localStorage：永久存储到客户端的本地<br>
+    sessionStorage：信息的会话存储，会话窗口存在信息也存在，会话窗口关闭信息就消失了。<br>
+2.cookie、localStorage、sessionStorage<br>
+<script>
+    //setItem(key,value):向客户端的本地存储一条记录，存储的value需要是字符串类型，如果不是的话浏览器会将其转换成字符串进行存储。
+    //key是不允许重复的，如果重复的话，会覆盖之前存储的
+    //localStorage.setItem("age",7);//将7转换成字符串进行存储
+    //getItem(key):获取之前存储的key的value
+    //console.log(typeof localStorage.getItem("age"));//string
+//    localStorage.setItem("age",JSON.stringify({"zhufeng":"珠峰"}));
+//    console.log(localStorage.getItem("age"));
+    //removeItem(key):移除key对应的记录
+    //clear:移除所有的记录
+    //localStorage.removeItem("age");
+    //获取存储的记录数
+//    console.log(localStorage.length);
+    //获取第一条记录的key
+//    console.log(localStorage.key(0));//age
+//    console.log(localStorage.key(1));
+
+    //localStorage与sessionStorage的区别
+//    localStorage.setItem("n",100);
+//    sessionStorage.setItem("n",200);
+//    console.log(sessionStorage.getItem("name"));
+</script>
+
+cookie:document.cookie<br>
+<script>
+    //document.cookie = "age=20";
+    //escape与unescape可以对中文的字符串进行编码与解码，放置传输过程中出现乱码，
+    // 除此之外还有很多方法：encodeURI(),decodeURI(),encodeURIComponent(),decodeURIComponent()
+    var str = "珠峰培训";
+    var n = escape(str);
+    console.log(n);
+    var m = unescape(n);
+    console.log(m);
+</script>
+</body>
+</html>
