@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表格排序及DOM映射</title>
+</head>
+<body>
+<ul id="ul1">
+    <li>98</li>
+    <li>99</li>
+    <li>96</li>
+    <li>95</li>
+    <li>90</li>
+</ul>
+<script src="../../js/util.js"></script>
+<script>
+    var oUl = document.getElementById("ul1");
+    var oLis = oUl.getElementsByTagName("li");
+    /*//1.将类数组转换成数组
+    var arr = utils.listToArray(oLis);
+    //2.使用数组sort
+    arr.sort(function (a, b) {
+        return parseFloat(a.innerHTML) - parseFloat(b.innerHTML);
+    });
+    //3.按照arr中存储的最新数据添加到页面
+    var frag = document.createDocumentFragment();
+    for (var i = 0; i < arr.length; i++) {
+        frag.appendChild(arr[i]);
+    }
+    oUl.appendChild(frag);
+    frag = null;*/
+
+    //DOM映射:页面中的标签和JS中获取到的元素对象（元素集合）是紧紧绑定在一起的，页面中的HTML结构变化了，JS中
+    //不需要重新获取，集合里面的内容也会跟着自动变。
+    console.log(oLis.length);
+    var oLi = document.createElement("li");
+    oUl.appendChild(oLi);
+    console.log(oLis.length);
+</script>
+</body>
+</html>
