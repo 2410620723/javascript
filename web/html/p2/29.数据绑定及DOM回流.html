@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>数据绑定及DOM回流</title>
+</head>
+<body>
+<ul id="ul1">
+    <li>
+        <span>01</span>辽宁省大连市：希望与中民投积极开展项目合作
+    </li>
+    <li>
+        <span>02</span>中民投联合发起海外基金，共享“一带一路”发展机遇
+    </li>
+    <li>
+        <span>03</span>关于落实引荐房地产背景物业企业股权投资的通知
+    </li>
+</ul>
+<script>
+    var arr = [
+        {
+            "title": "中民投荣膺美国《机构投资者》评选“最佳金融战略奖”",
+            "description": "2017年4月28日，美国《机构投资者》（Institutional Investor）杂志中文网站——“机构投资者在线”（iichina.com）举办的“2016大中华区金融业最佳”评选活动的颁奖典礼在北京举行。中国民生投资集团（以下简称“中民投”）以出色的投资业绩和卓越的投资理念荣获“2016金融行业最佳金融战略奖”。"
+        },
+        {
+            "title": "中民投租赁集团联合新加坡太平船务、荣民控股集团组建中民投国际物流租赁",
+            "description": "4月11日，西安市副市长李元会见了新加坡工商联主席、新加坡太平船务董事局主席张松声，全国工商联副主席、荣民控股集团董事局主席史贵禄，中民投租赁集团董事长兼总裁王蓉一行，共同就在西安国际港务区设立中民投国际物流租赁事宜进行了深入沟通交流。"
+        },
+        {
+            "title": "中民投召开集团流动性管理专题培训会议",
+            "description": "为全面了解和借鉴企业流动性管理的模式与经验，优化资产负债结构，根据董文标主席的指示，2017年3月28日9时至12时，集团在上海金外滩国际广场召开了流动性管理专题培训会议，并在北京健壹景园设立了分会场，集团核心管理层及各被投公司董事长、总裁、财务总监等90多人参加了会议。"
+        },
+        {
+            "title": "中民投又一产业将落子中原，全面推进建筑业绿色创新",
+            "description": "4月22日，中民投董事局主席董文标在中民筑友长沙总部会见了来访的平顶山市市长周斌一行。双方就在装配式建筑领域开展合作深入讨论并达成共识，中民投又一重磅产业有望落地中原大地。"
+        },
+        {
+            "title": "中民筑友平顶山绿色建筑科技园正式开工",
+            "description": "2017年4月27日，中民筑友平顶山绿色建筑科技园项目开工仪式在平顶山市城乡一体化示范区隆重举行。平顶山市委书记胡荃，市委副书记、市长周斌，市人大副主任史正廉等政府领导，中民投总裁李怀珍、中民投副总裁孔林山、中民筑友首席运营官江炳生等企业领导参加了此次开工仪式。"
+        },
+        {
+            "title": "新加坡前总理吴作栋加入中民投全球顶级专家“朋友圈”",
+            "description": "5月18日下午，中民投董事局执行副主席李银珩在新加坡总统府拜会了新加坡前总理、荣誉国务资政吴作栋先生，双方就一系列共同关心的话题进行了亲切友好的会谈交流。会谈最后，吴资政欣然接受了李银珩执行副主席的邀请，正式成为中民投全球专家咨询委员会（GAC）委员。"
+        }
+    ];
+    var oUl = document.getElementById("ul1");
+    var oLis = oUl.getElementsByTagName("li");
+    for (var i = 0; i < oLis.length; i++) {
+        oLis[i].onmouseover = function () {
+            this.style.backgroundColor = "pink";
+        };
+        oLis[i].onmouseout = function () {
+            this.style.backgroundColor = "";
+        };
+    }
+
+    /*1.动态绑定
+    for (var i = 0; i < arr.length; i++) {
+        var oLi = document.createElement("li");
+        var cur = arr[i];
+        oLi.innerHTML = "<span>" + (i + 4) + "</span>" + cur.title;
+        oUl.appendChild(oLi);
+    }*/
+    //优势：并不会影响原来数据的效果。弊端：没创建一个li，就引发一次DOM回流，影响性能。
+    /*2.字符串拼接
+    var str = "";
+    for(var j=0;j<arr.length;j++){
+        var cur = arr[j];
+        str += "<li>";
+        str += "<span>"+(j+4)+"</span>";
+        str += cur.title;
+        str += "</li>";
+    }
+    oUl.innerHTML += str;*/
+    //优势：事先把内容拼接好，最后统一添加到页面中，只引发一次回流
+    //字符串拼接的弊端：原来三个li的鼠标滑过的效果消失了
+    //字符串拼接是项目中最常用的数据绑定方式。
+
+    //JS中DOM深入知识：
+    //1.回流（重排）：当前页面中的HTML结构发生改变（增加、删除、位置变化……），浏览器都需要重新的计算一遍最新的DOM结构，重新对当前页面进行渲染。
+    //2.重绘：某个元素的部分样式发生改变（背景颜色），浏览器只需重新的渲染当前元素即可。
+
+    //JS优化：减少DOM回流，手动释放内存
+
+    //3.文档碎片
+    var frag = document.createDocumentFragment();
+    for(var k=0;k<arr.length;k++){
+        var cur = arr[k];
+        var oLi = document.createElement("li");
+        oLi.innerHTML = "<span>"+(k+4)+"</span>"+cur.title;
+        frag.appendChild(oLi);
+    }
+    oUl.appendChild(frag);//只引发一次回流，不影响原有的元素
+    frag = null;//手动释放
+
+</script>
+</body>
+</html>
