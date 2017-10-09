@@ -1,0 +1,40 @@
+@charset "UTF-8";
+*{
+    margin: 0;
+    padding: 0;
+    font-family: "微软雅黑";
+    font-size: 14px;
+    -webkit-user-select: none;
+}
+.box{
+    margin: 20px auto;
+    padding: 20px;
+    width: 400px;
+    border: 1px solid green;
+    border-radius: 10px;
+    box-shadow: 3px 3px 10px 0 #dbeebd;
+}
+.box thead{
+    background: #008000;
+    color: #ffffff;
+}
+.box thead tr{
+    height: 35px;
+}
+.box thead tr th{
+    width: 100px;
+    text-align: center;
+}
+.box thead tr th.cursor{
+    cursor: pointer;
+}
+.box tbody tr{
+    height: 30px;
+}
+.box tbody tr.bg{
+    background: lightgreen;
+}
+.box tbody tr td{
+    width: 100px;
+    text-align: center;
+}
