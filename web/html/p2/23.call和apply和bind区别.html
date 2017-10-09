@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>call和apply和bind区别</title>
+</head>
+<body>
+call:改变this关键字并且把方法执行<br>
+<script>
+    "use strict";// 告诉浏览器接下来的代码按照严格模式来编写
+    var obj = {name: "珠峰"};
+    function fn1(num1, num2) {
+        console.log(num1 + num2);
+        console.log(this);
+    }
+    // fn1(100, 200);// this -> Window,num1=100,num2=200
+    // fn1.call(100, 200);// this -> 100,num1=200,num2=undefined
+    fn1.call(obj, 100, 200);// this -> obj,num1=100,num2=200
+    fn1.call();// this -> Window  在严格模式下this是undefined
+    fn1.call(null);// this -> Window  在严格模式下this是null
+    fn1.call(undefined);// this -> Window  在严格模式下this是undefined
+</script>
+
+apply:apply和call方法的作用是一模一样的，都是改变this关键字并且把方法执行
+，而且在严格模式下和非严格模式下对于第一个参数是null/undefined这种情况的规律也是一样的。
+区别：call在给fn传递参数时是一个一个传的，而apply是要将参数放到一个数组中进行操作<br>
+<script>
+    var obj = {name: "珠峰"};
+    function fn2(num1, num2) {
+        console.log(num1 + num2);
+        console.log(this);
+    }
+    fn2.apply(obj, [100, 200]);
+</script>
+
+bind:这个方法在IE6-8下不兼容，和call/apply类似都是用来改变this关键字<br>
+<script>
+    var obj = {name: "珠峰"};
+    function fn3(num1, num2) {
+        console.log(num1 + num2);
+        console.log(this);
+    }
+    //预处理：实现把fn3的this改变成我们想要的结果，并且把对应的参数准备好，以后要用到了，直接执行即可。
+    var tempFn = fn3.bind(obj,1,2);// 只是改变fn3中this为obj，并且传递了两个参数1、2，但是此时并没有将函数执行
+    tempFn();
+</script>
+</body>
+</html>
