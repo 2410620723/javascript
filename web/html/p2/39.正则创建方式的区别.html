@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则创建方式的区别</title>
+</head>
+<body>
+字面量：在//之间包起来的所有内容都是元字符，有的具有特殊意义，大部分都是代表本身含义的普通元字符<br>
+字面量方式与实例化方式区别：<br>
+&nbsp;&nbsp;字面量中出现的一切都是元字符，所以不能进行字符串拼接，而实例化方式可以。
+&nbsp;&nbsp;字面量中可以直接使用\d，而实例化中需要将它转义\\d
+<script>
+    var name = "zhufeng";
+    var reg = /^\d+"+name+"\d+$/;
+    console.log(reg.test("2014zhufeng2015"));//false
+    console.log(reg.test('2014""nameee"2015'));//true
+    reg = new RegExp("^\\d+"+name+"\\d+$","g");
+    console.log(reg.test("2014zhufeng2015"));//true
+</script>
+</body>
+</html>
