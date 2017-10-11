@@ -5,9 +5,67 @@
     <title>正则的元字符和一些简单的应用</title>
 </head>
 <body>
-每一个正则表达式都是由元字符和修饰符组成的
-<script>
+每一个正则表达式都是由元字符和修饰符组成的<br>
+&nbsp;&nbsp;1.元字符：在//之间具有意义的一些字符<br>
+&nbsp;&nbsp;1)具有特殊意义的字字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\：转义字符，转义后面字符所代表的含义<br>
+&nbsp;&nbsp;&nbsp;&nbsp;^：以某一个元字符开始<br>
+&nbsp;&nbsp;&nbsp;&nbsp;$：以某一个元字符结尾<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\n：匹配一个换行符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;.：除了\n以外的任意字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;()：分组；作用改变x|y的默认优先级<br>
+&nbsp;&nbsp;&nbsp;&nbsp;x|y：x或y中的一个<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[xyz]：x或y或z中的一个<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[^xyz]：除了xyz以外的一个<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[a-z]：a-z之间的任意一个字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;[^a-z]：a-z以外的任意一个字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\d：一个0-9之间的数字<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\D：除了0-9以外的任意字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\b：匹配一个边界符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\w：数字、字母、下划线中的任意一个字符[(0-9)(a-z)(A-Z)(_)]<br>
+&nbsp;&nbsp;&nbsp;&nbsp;\s：匹配一个空白字符  空格、一个制表符、换页符<br>
+
+
+
+
+&nbsp;&nbsp;2.代表出现次数的量词元字符<br>
+&nbsp;&nbsp;&nbsp;&nbsp;*：出现零到多次<br>
+&nbsp;&nbsp;&nbsp;&nbsp;+：出现一到多次<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?：出现零次或一次<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{n}：出现n次<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{n,}：出现n到多次<br>
+&nbsp;&nbsp;&nbsp;&nbsp;{n,m}：出现n到m次<br>
+&nbsp;&nbsp;
+<!--<script>
     var reg = /\d/;
+    console.log(reg.test("zhufeng2015"));//true
+    reg = /^\d$/;//只能是一个0-9之间的数字
+    console.log(reg.test("9"));//true
+    console.log(reg.test("029"));//false
+    reg = /^0.2$/;// 以0开头2结尾的除换行以外任意字符
+    console.log(reg.test("0-2"));//true
+    reg = /^0\.2$/;// 0.2
+    console.log(reg.test("0-2"));//false
+    reg = /^(\d+)zhu(\d+)$/;
+    console.log(reg.test("123zhu123"));//true
+    reg = /^\d+$/;
+    console.log(reg.test("2015"));//true
+    reg = /^1\d{10}$/;// 11个数字，以1开头
+</script>-->
+应用：<br>
+&nbsp;&nbsp;1.在中括号中出现的字符都是代表本身的意思，没有特殊含义。
+&nbsp;&nbsp;
+<script>
+    /*有效数字的正则  正数、负数、0、小数*/
+    // 开始可以有+/- ，也可以没有
+    // "."可以出现也可以不出现，一旦出现，后面必须跟数字
+    // 正数部分，一个数可以是0-9之间的一个，多位数不能以0开头
+    var reg = /^[+-]?(\d|([1-9]\d+))(\.\d+)?$/;
+    console.log(reg.test("0.18"));
+
+    /*// ()分组
+    var reg = /18|19/;//181,189,119,819,1819...
+    var reg = /^(\d|([1-9]\d+))$/;//18或19*/
 </script>
 </body>
 </html>
