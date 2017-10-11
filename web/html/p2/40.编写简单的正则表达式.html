@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编写简单的正则表达式</title>
+</head>
+<body>
+<script>
+//    年龄介于18-65之间
+    var reg = /^(1[8-9])|([2-5]\d)|(6[0-5])$/;
+    console.log(reg.test("56"));// true
+    console.log(reg.test("30"));// true
+    console.log(reg.test("69"));// false
+
+
+//    var reg = /^[\w-]$/;// 数字 字母 下划线 - 中的一个
+
+    // 验证邮箱的正则
+    // @左边的：数字、字母、下划线、-、.
+    // @右边.前面：数字、字母、-
+    // .xxx：字母（两到四位）出现1-2次
+    reg = /^[0-9a-zA-z-_.]+@[0-9a-zA-Z-]+(\.[a-zA-Z]{2,4}){1,2}$/;
+    console.log(reg.test("1043509962@qq.com"));// true
+    console.log(reg.test("zxm2410620723@outlook.com"));// true
+    console.log(reg.test("zxm2410620723@.com"));// false
+
+    // 验证邮箱的正则(简版)
+    reg = /^[\w.-]+@[0-9a-zA-Z]+(\.[a-zA-Z]{2,4}){1,2}$/;
+    console.log(reg.test("zxm2410620723@outlook.com"));// true
+    //中国标准真实姓名 2-4位汉字
+    reg = /^[\u4e00-\u9fa5]{2,4}$/;
+    console.log(reg.test("阿三"));
+    // 身份证号码
+    reg = /^\d{17}(\d|X)$/;
+    console.log(reg.test("342601199203115933"));
+    // 34 2601 1992 03 11 59 3 3
+    reg = /^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(\d{2})(\d)(\d|X)$/;
+    var str = "342601199203115933";
+    console.log(reg.exec(str));
+</script>
+</body>
+</html>
