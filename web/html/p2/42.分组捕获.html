@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>分组捕获</title>
+</head>
+<body>
+正则分组：<br>
+&nbsp;&nbsp;1.改变优先级<br>
+&nbsp;&nbsp;2.分组引用<br>
+<script>
+    // \1：代表和第一个分组出现一模一样的内容
+    // \2：代表和第二个分组出现一模一样的内容
+    // 分组捕获：正则在捕获的时候，不仅仅把大正则匹配的内容捕获到，而且还可以把小分组匹配的内容捕获到。
+    // ?:：在分组中“?:”的意思是只匹配不捕获
+    /*var reg = /(\w)\1(\w)\2/;
+    console.log(reg.test("zzff"));//true
+    console.log(reg.test("z0f_"));//false
+
+    reg  = /^(\d{2})(\d{4})(\d{4})(\d{2})(\d{2})(?:\d{2})(\d)(?:\d|X)$/;
+    var str = "342601199203115933";
+    console.log(reg.exec(str));// ["342601199203115933", "34", "2601", "1992", "03", "11", "3", index: 0, input: "342601199203115933"]
+    console.log(str.match(reg));// ["342601199203115933", "34", "2601", "1992", "03", "11", "3", index: 0, input: "342601199203115933"]*/
+
+    var reg = /zhufeng(\d+)/g;
+    var str = "zhufeng1234zhufeng3456zhufeng5678";
+    /*console.log(reg.exec(str));// ["zhufeng1234", "1234", index: 0, input: "zhufeng1234zhufeng3456zhufeng5678"]
+    console.log(reg.exec(str));// ["zhufeng3456", "3456", index: 11, input: "zhufeng1234zhufeng3456zhufeng5678"]
+    console.log(reg.exec(str));// ["zhufeng5678", "5678", index: 22, input: "zhufeng1234zhufeng3456zhufeng5678"]*/
+    console.log(str.match(reg));// ["zhufeng1234", "zhufeng3456", "zhufeng5678"]只能捕获大正则匹配的内容，不能捕获分组匹配的内容。
+</script>
+</body>
+</html>
