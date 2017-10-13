@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>replace</title>
+</head>
+<body>
+在不使用正则的情况下，每当执行一次只能替换一个字符<br>
+<script>
+    var str1 = "zhufeng2014zhufeng2015";
+    str1 = str1.replace("zhufeng","zhufengpeixun");
+    console.log(str1);// zhufengpeixun2014zhufeng2015
+</script>
+使用正则<br>
+&nbsp;&nbsp;replace第一项的值是正则的实现原理<br>
+&nbsp;&nbsp;首先和exec捕获一样，把所有和正则匹配的都捕获到，然后把捕获到的内容替换成新内容。<br>
+<script>
+    var str2 = "zhufeng2014zhufeng2015";
+    str2 = str2.replace(/zhufeng/g,"zhufengpeixun");
+    console.log(str2);// zhufengpeixun2014zhufengpeixun2015
+
+    var str3 = "zhufeng2014zhufeng2015";
+    str3 = str3.replace(/zhufeng/g,function () {
+        // console.log("ok");// 执行两次，因为正则在字符串中捕获两次，所以匿名函数执行两次
+        console.log(arguments);//["zhufeng", 0, "zhufeng2014zhufeng2015"]["zhufeng", 11, "zhufeng2014zhufeng2015"]
+        return "zhufengpeixun";
+    });
+    console.log(str3);// zhufengpeixun2014zhufengpeixun2015
+    // 每次执行匿名函数，里面传递的参数arguments和我们使用exec捕获到的结果基本一致的（即使正则有分组，
+    // 我们同样可以使用arguments获取到分组捕获的内容）。
+    // return：你返回的结果是什么，就相当于把这次大正则捕获到的内容替换成你返回的内容。
+    var str4 = "zhufeng2014zhufeng2015";
+    str4 = str4.replace(/\d+/g,function () {
+        return 1;
+    });
+    console.log(str4);//zhufeng1zhufeng1
+
+    // RegExp.$1：获取正则捕获的第一个内容
+    var str5 = "20171314";
+    var arr1 = ["零","壹","贰","叁","肆","伍","陆","柒","捌","玖"];
+    str5 = str5.replace(/\d/g,function () {
+        var num = arguments[0];
+        return arr1[num];
+    });
+    console.log(str5);
+</script>
+</body>
+</html>
