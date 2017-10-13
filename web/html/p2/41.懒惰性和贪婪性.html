@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>懒惰性和贪婪性</title>
+</head>
+<body>
+<script>
+    // exec -> 正则的捕获
+    // 每次捕获的时候，都会先进行默认的匹配，如果没有匹配成功的话，捕获到的结果是null；只有匹配的内容才能捕获到。
+    // 捕获的内容格式
+    // 1.捕获的内容是一个数组
+    // 数组的第一项是当前大正则捕获的内容
+    // index：捕获内容在字符串中开始的索引位置
+    // input：捕获的原始字符串
+    var reg1 = /\d+/;
+    var str1 = "2015zhufeng2016";
+    var str2 = "zhufeng";
+    console.log(reg1.exec(str1));// ["2015", index: 0, input: "2015zhufeng2016"]
+    console.log(reg1.exec(str2));// null
+
+    // 正则捕获的特点
+    // 懒惰性 -> 每次执行exec只捕获第一个匹配的内容，在不进行特殊处理的情况下，在执行多次捕获，捕获的还是第一个匹配的内容。
+    // lastIndex：正则每次捕获是在字符串中开始查找的位置，默认的值是0
+    console.log(reg1.lastIndex);
+    // 解决懒惰性：在正则的末尾加一个修饰符g
+    // 修饰符：g、i、m
+    // g：global 全局匹配
+    // i：ignoreCase 忽略大小写
+    // m：multiline 多行匹配
+    // 原理：加了全局修饰符g，正则每次捕获结束之后，lastIndex的值都会变成最新的，下次捕获的时候，从最新的位置开始查找。
+    var reg2 = /\d+/g;
+    var str3 = "2015zhufeng2016hell2017";
+    var arr1 = [];
+    var res = reg2.exec(str3);
+    while (res){
+        arr1.push(res[0]);
+        res = reg2.exec(str3);
+    }
+    console.log(arr1);// ["2015", "2016", "2017"]
+    /*console.log(reg2.lastIndex);
+    console.log(reg2.exec(str1));
+    console.log(reg2.lastIndex);
+    console.log(reg2.exec(str1));*/
+
+    // 贪婪性：正则的每次捕获都是按照匹配最长的结果捕获，例如2满足、2015也满足，默认捕获的是2015
+    // 解决正则的贪婪性：在量词元字符后面加一个?
+    var reg3 = /\d+?/g;
+    var str4 = "2015zhufeng2016hell2017";
+//    console.log(reg3.exec(str4));//2
+    var arr2 = [];
+    var res2 = reg3.exec(str4);
+    while (res2){
+        arr2.push(res2[0]);
+        res2 = reg3.exec(str4);
+    }
+    console.log(arr2);
+    // ?在正则中的作用：
+    // 放在普通元字符后面表示出现0-1次
+    // 放在一个量词后面表示取消正则的贪婪性
+
+    // 字符串的match方法：把所有和正则匹配的字符串都捕获到
+    // 缺点：在分组捕获的情况下，match只能捕获大正则匹配的内容，而对于小正则捕获的内容无法获取。
+
+    var reg4 = /\d+?/g;
+    var str5 = "2015zhufeng2016hell2017";
+    var arr3 = str5.match(reg4);
+    console.log(arr3);
+
+</script>
+</body>
+</html>
