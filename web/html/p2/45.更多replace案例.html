@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>更多replace案例 </title>
+</head>
+<body>
+<script>
+    var str1 = "zhufengpeixun~~zhufengjiaoyu~~";
+    //    str1 = str1.replace(/zhufeng/g,"珠峰");
+    str1 = str1.replace(/zhufeng/g, function () {
+        return arguments[0];
+    });
+    console.log(str1);
+    var str2 = "全日制第七期学费：9800";
+    var arr1 = ["零", "壹", "贰", "叁", "肆", "伍", "陆", "柒", "捌", "玖"];
+    str2 = str2.replace(/\d/g, function () {
+        return arr1[arguments[0]];
+    });
+    console.log(str2);
+
+    var str3 = "zhufengpeixunyangfanqihang";
+    var obj1 = {};
+    str3 = str3.replace(/[a-z]/gi, function () {
+        var val = arguments[0];
+        obj1[val] = obj1[val] >= 1 ? obj1[val] + 1 : 1;
+        return arguments[0];
+    });
+    console.log(obj1);
+    var maxNum = 0;
+    for (var key1 in obj1) {
+        maxNum = obj1[key1] > maxNum ? obj1[key1] : maxNum;
+    }
+    //    console.log(maxNum);
+    var keys = [];
+    for (var key2 in obj1) {
+        obj1[key2] == maxNum ? keys.push(key2) : null;
+    }
+    //    console.log(keys);
+    console.log("出现最多的字符是 " + keys.toString() + " 出现了 " + maxNum + " 次");
+
+    var str4 = "http:kbs.sports.qq.com/kbsweb/game.htm?mid=100000&cid=1467086&app=1.0";
+    var reg4 = /([^?=&]+)=([^?=&]+)/g;
+    var obj2 = {};
+    str4.replace(reg4,function () {
+        obj2[arguments[1]] = arguments[2];
+    });
+    console.log(obj2);
+</script>
+</body>
+</html>
