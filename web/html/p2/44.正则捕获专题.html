@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则捕获专题</title>
+</head>
+<body>
+<script>
+    var reg1 = /\d+?/g;
+    var str1 = "zhufeng2015zhufeng2016";
+    var res1 = reg1.exec(str1),arr1 = [];
+    while (res1){
+        arr1.push(res1[0]);
+        res1 = reg1.exec(str1);
+    }
+    console.log(arr1);
+
+    var reg2 = /\d+?/g;
+    var str2 = "zhufeng2015zhufeng2016";
+    var arr2 = str2.match(reg2);
+    console.log(arr2);
+
+    String.prototype.match = function (reg) {
+        var res = reg.exec(this);
+        var arr = [];
+        while (res){
+            arr.push(res[0]);
+            res = reg.exec(this);
+        }
+        return arr;
+    }
+    var str3 = "zhufeng2015zhufeng2016";
+    var reg3 = /\d+?/g;
+    var arr3 = str3.match(reg3);
+    console.log(arr3);
+
+    var str4 = "my name is {0},my age is {1},i come from {2},i love {3}";
+    var arr4 = ["张三",26,"中国","java"];
+    var reg4 = /{(\d+)}/g;
+    str4 = str4.replace(reg4,function () {
+        return arr4[arguments[1]];
+    });
+    console.log(str4);
+    /*var res4 = reg4.exec(str4);
+    console.log(res4);*/
+
+</script>
+</body>
+</html>
