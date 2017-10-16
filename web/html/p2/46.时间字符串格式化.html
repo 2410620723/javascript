@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间字符串格式化</title>
+</head>
+<body>
+使用正则格式化时间字符串<br>
+<script>
+    var dateStr = "2017-8-16 8:53:00",
+        dateReg = /^(\d{4})[-/](\d{1,2})[-/](\d{1,2}) +(\d{1,2}):(\d{1,2}):(\d{1,2})$/g,
+        dateArr = [];
+    dateStr.replace(dateReg,function () {
+        dateArr = ([].slice.call(arguments)).slice(1,7);
+        console.log(dateArr);
+    });
+    var resStr = "{0}年{1}月{2}日 {3}时{4}分{5}秒";
+    var resReg = /{(\d+)}/g;
+    resStr = resStr.replace(resReg,function () {
+        var num = arguments[1],val = dateArr[num];
+        val.length===1?val = "0"+val:void 0;
+        return val;
+    });
+    console.log(resStr);
+</script>
+</body>
+</html>
