@@ -29,7 +29,7 @@
 
     var str3 = "12345678900";
     str3 = str3.split("").reverse().join("");
-    str3.replace(/(\d{3}(?!$))/, "$1,");
+    str3 = str3.replace(/(\d{3}(?!$))/g, "$1,");
     str3 = str3.split("").reverse().join("");
     console.log(str3);
 </script>

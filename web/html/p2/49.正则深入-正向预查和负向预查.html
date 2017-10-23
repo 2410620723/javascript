@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>正则深入-正向预查和负向预查</title>
+</head>
+<body>
+?：作用<br>
+&nbsp;&nbsp;1)量词<br>
+&nbsp;&nbsp;2)匹配不捕获<br>
+&nbsp;&nbsp;3)非贪婪匹配<br>
+&nbsp;&nbsp;4)正向预查与负向预查<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?!<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?<=<br>
+&nbsp;&nbsp;&nbsp;&nbsp;?&lt;!<br>
+
+<script>
+    //1.量词
+    var str1 = "-123.45";
+//    var reg1 = /^[+-]?\d+(\.\d+)?$/;// ^$表示严格匹配
+    var reg1 = /^(\+|-)?\d+(\.\d+)?$/;// ^$表示严格匹配
+    console.log(reg1.test(str1));
+
+    //2.匹配不捕获
+    reg1 = /^(?:\+|-)?\d+(\.\d+)?$/;
+    console.log(reg1.test(str1));
+
+    //3.非贪婪匹配
+    var reg2 = /\d+?/;
+    var str2 = "abc1234def4567xyz098";
+    var result = reg2.exec(str2);
+    console.log(result);
+
+    //4.正向预查与负向预查
+    var str3 = "12345678900";
+    str3 = str3.split("").reverse().join("").replace(/(\d{3}(?!$))/g,"$1,");
+    console.log(str3.split("").reverse().join(""));
+</script>
+</body>
+</html>
