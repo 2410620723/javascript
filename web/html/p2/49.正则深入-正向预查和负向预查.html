@@ -34,8 +34,20 @@
 
     //4.正向预查与负向预查
     var str3 = "12345678900";
-    str3 = str3.split("").reverse().join("").replace(/(\d{3}(?!$))/g,"$1,");
-    console.log(str3.split("").reverse().join(""));
+    /*str3 = str3.split("").reverse().join("").replace(/(\d{3}(?!$))/g,"$1,");
+    console.log(str3.split("").reverse().join(""));*/
+    var reg3 = /\d(?=\d{3})+$/g;
+    str3 = str3.replace(reg3,function () {
+        return arguments[0]+",";
+    });
+    str3 = str3.replace(reg3,"$1,");
+    console.log(str3);
+
+    //去除重复的字符
+    var str4 = "aaaabbbbc12346666";
+    var reg4 = /(\w)\1+/g;
+    str4 = str4.replace(reg4,"$1");
+    console.log(str4);
 </script>
 </body>
 </html>
