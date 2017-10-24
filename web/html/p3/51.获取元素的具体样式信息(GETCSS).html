@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>获取元素的具体样式信息(GET CSS)</title>
+    <style type="text/css">
+        /*写css的时候，第一步初始化默认样式，避免浏览器之间的差异，不仅如此，写默认样式对js获取到的结果的统一性也是有帮助的。*/
+        * {
+            margin: 0;
+            padding: 0;
+            font-size: 14px;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+        }
+
+        #box {
+            width: 200px;
+            height: 200px;
+            border: 10px solid green;
+            margin: 100px auto;
+            padding: 10px;
+            line-height: 30px;
+            opacity: 0.1;
+            filter: alpha(opacity=10);
+        }
+    </style>
+</head>
+<body>
+<div id="box" class="test">
+    &nbsp;&nbsp;中国共产党人进行着划时代的理论创新、实践创新，创立了习近平新时代中国特色社会主义思想，中国特色社会主义进入了新时代。
+</div>
+<script>
+    // 获取元素的某一个具体样式属性值
+    // 1.元素.style.属性名
+    // 需要把元素的样式都写在内联样式上才可以
+    var box = document.getElementById("box");
+    // console.log(box.style.height);
+    // 在真实项目中，这种方式不常用，因为我们不能为了获取值而把所有的样式都写在内联样式中，
+    // 无法实现css与html的分离
+
+    // 2.使用window.getComputedStyle这个方法获取所有经过浏览器计算过的样式。
+    // 所有经过浏览器计算过的样式：只要当前的元素标签可以在页面中呈现出来，
+    // 那么它的样式都是经过浏览器计算过的（渲染过的），哪怕是有些没写过的样式，也可以获取。
+    // window.getComputedStyle(当前元素,当前元素的伪类);
+    // 获取的结果是CSSStyleDeclaration
+    // console.log(window.getComputedStyle(box,null)['width']);
+    // console.log(window.getComputedStyle(box,null).height);
+    // 方法虽然好用，但是在IE6-8下不兼容
+    // console.log(window.getComputedStyle);//undefined
+    // 在IE6-8下可以使用currentStyle来获取所有经过浏览器计算过的样式
+    // console.log(box.currentStyle.height);// 只有在IE6-8下才有这个属性
+
+    // 使用try、catch处理兼容（只有在不得已的情况下才使用）。
+    //获取当前元素所有经过浏览器计算过的样式中的attr的值。
+    // 前提：必须保证try中的代码在不兼容浏览器中执行报错了，这样的话才能在catch中捕获异常信息，进行处理。
+    // 不管当前使用的是什么浏览器，都需要先执行try中的代码，
+    /*function getCss(curEle,attr) {
+     var value = null;
+     try {
+     value = window.getComputedStyle(box,null)[attr];
+     } catch (e){
+     value = curEle.currentStyle[attr];
+     }
+     return value;
+     }
+     console.log(getCss(box,"height"));*/
+
+    // 判断当前浏览器是否存在该属性来处理兼容性
+    /*function getCss(curEle, attr) {
+     var value = null;
+     // if(window.getComputedStyle){// 下面的性能更好一点
+     if ("getComputedStyle" in window) {
+     value = window.getComputedStyle(box, null)[attr];
+     } else {
+     value = curEle.currentStyle[attr];
+     }
+     return value;
+     }
+     console.log(getCss(box,"height"));*/
+
+    // 通过检测浏览器版本和类型来处理兼容性
+    console.log(window.navigator.userAgent);
+    // Chrome:Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 UBrowser/6.2.3637.220 Safari/537.36
+    // IE8:Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; WOW64; Trident/7.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; .NET4.0C; .NET4.0E)
+    /*function getCss(curEle, attr) {
+     var value = null;
+     if (/MSIE (6|7|8)/.test(navigator.userAgent)) {
+     value = curEle.currentStyle[attr];
+     } else {
+     value = window.getComputedStyle(box, null)[attr];
+     }
+     return value;
+     }
+     console.log(getCss(box,"margin"));//将复合型属性拆开来写，如：marginTop
+     console.log(getCss(box,"fontFamily"));
+     console.log(getCss(box,"border"));
+     console.log(getCss(box,"borderTopWidth"));
+     // 标准浏览器和IE浏览器获取的结果还是不一样的 -> 对于部分样式不同浏览器获取的结果不一样，
+     // 主要是由于getComputedStyle和currentStyle在某些方面不一样。*/
+
+    // 第一次升级：把获取到的样式值去掉单位
+    // 只有符合“数字+单位”/“数字”才可以使用parseFloat
+    /*function getCss(curEle, attr) {
+     var value = null, reg = null;
+     if ("getComputedStyle" in window) {
+     value = window.getComputedStyle(box, null)[attr];
+     } else {
+     value = curEle.currentStyle[attr];
+     }
+     reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+     return reg.test(value) ? parseFloat(value) : value;
+     }
+     console.log(getCss(box, "height"));
+     console.log(getCss(box, "margin"));
+     console.log(getCss(box, "float"));*/
+
+    //第二次升级：有些样式在不同浏览器中是不兼容的，例如：opacity
+    function getCss(curEle, attr) {
+        var value = null;
+        if ("getComputedStyle" in window) {
+            value = window.getComputedStyle(box, null)[attr];
+        } else {
+            if (attr === "opacity") {
+                value = curEle.currentStyle["filter"];// alpha(opacity=10)
+                var oReg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                value = oReg.test(value) ? oReg.exec(value)[1] / 100 : 1;
+            } else {
+                value = curEle.currentStyle[attr];
+            }
+        }
+        var reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+        return reg.test(value) ? parseFloat(value) : value;
+    }
+    console.log(getCss(box, "opacity"));
+</script>
+</body>
+</html>
