@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>项目实战-回到顶部</title>
+</head>
+<body>
+<script>
+    /*// 到达指定的时间，执行指定的方法，定时器结束
+     // setTimeout(function () {},1000);
+
+     // 设置一个定时器，每隔1000ms后执行指定方法，定时器不结束，除非手动取消定时器
+     // setInterval(function () {},1000);
+
+     var timer1 = setTimeout(function(){console.log("timer1");},1000);
+     console.log(timer1);
+     var timer2 = setTimeout(function(){console.log("timer2");},1000);
+     console.log(timer2);
+     var timer3 = setInterval(function(){console.log("timer3");},1000);
+     console.log(timer3);
+     clearInterval(1);// 清除定时器
+     clearTimeout(timer3);// 清除定时器*/
+
+    /*var n = 0;
+     var timer = setInterval(function () {
+     n++;
+     console.log(n);
+     if (n===5) {
+     clearInterval(timer);
+     // clearTimeout(timer);
+     }
+     }, 1000);*/
+
+    var n = 0;
+    var timer = null;
+    function move() {
+        clearTimeout(timer);// 在每次执行之前，把之前设置的没用的定时器清除掉。
+        n++;
+        console.log(n);
+        if (n === 5)
+            return;
+        // 递归：每次执行完成之后，设置一个新的定时器，过1秒后重新执行move。
+        timer = setTimeout(move, 1000);
+    }
+    move();
+
+</script>
+</body>
+</html>
