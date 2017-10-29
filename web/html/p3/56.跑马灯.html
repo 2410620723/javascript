@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>跑马灯</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+        }
+        #box{
+            margin: 50px auto;
+            padding: 0 10px;
+            width: 1000px;
+            height: 35px;
+            line-height: 35px;
+            border: 1px solid #000000;
+            background: lightgreen;
+        }
+        #wrap{
+            white-space: nowrap;
+            height: 35px;
+            overflow: hidden;
+        }
+        #wrap span{
+            color: red;
+            font-weight: bold;
+            font-size: 16px;
+        }
+        #wrap div{
+            display: inline-block;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box">
+    <div id="wrap">
+        <div id="conBegin">
+            <span>通知：</span>中国共产党人进行着划时代的理论创新、实践创新，创立了习近平新时代中国特色社会主义思想，
+            中国特色社会主义进入了新时代。
+            中国共产党人进行着划时代的理论创新、实践创新，创立了习近平新时代中国特色社会主义思想，
+            中国特色社会主义进入了新时代。
+        </div>
+    </div>
+</div>
+<script>
+    var wrap = document.getElementById("wrap");
+    var conBegin = document.getElementById("conBegin");
+    var conBeginWidth = getCss(conBegin,"width");
+    setInterval(function () {
+        wrap.scrollLeft++;
+        if (wrap.scrollLeft >= conBeginWidth){
+            wrap.scrollLeft = 0;
+        }
+    },10);
+
+    function getCss(curEle, attr) {
+        var value = null;
+        if ("getComputedStyle" in window) {
+            value = window.getComputedStyle(box, null)[attr];
+        } else {
+            if (attr === "opacity") {
+                value = curEle.currentStyle["filter"];// alpha(opacity=10)
+                var oReg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                value = oReg.test(value) ? oReg.exec(value)[1] / 100 : 1;
+            } else {
+                value = curEle.currentStyle[attr];
+            }
+        }
+        var reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+        return reg.test(value) ? parseFloat(value) : value;
+    }
+</script>
+</body>
+</html>
