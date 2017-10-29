@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>多选</title>
+    <style type="text/css">
+        .selected {
+            background: tan;
+        }
+
+        p {
+            cursor: pointer;
+            background: #f0f0f0
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <label><input type="checkbox" value="1"/>hello1</label>
+    <label><input type="checkbox" value="1"/>hello2</label>
+    <label><input type="checkbox" value="1"/>hello3</label>
+    <label><input type="checkbox" value="1"/>hello4</label>
+    <label><input type="checkbox" value="1"/>hello5</label>
+    <label><input type="checkbox" value="1"/>hello6</label>
+    <label><input type="checkbox" value="1"/>hello7</label>
+    <label><input type="checkbox" value="1"/>hello8</label>
+    <label><input type="checkbox" value="1"/>hello9</label>
+    <label><input type="checkbox" value="1"/>hello10</label>
+    <label><input type="checkbox" value="1"/>hello11</label>
+    <label><input type="checkbox" value="1"/>hello12</label>
+    <label><input type="checkbox" value="1"/>hello13</label>
+    <label><input type="checkbox" value="1"/>hello14</label>
+    <label><input type="checkbox" value="1"/>hello15</label>
+    <label><input type="checkbox" value="1"/>hello16</label>
+    <label><input type="checkbox" value="1"/>hello17</label>
+    <label><input type="checkbox" value="1"/>hello18</label>
+</div>
+<script src="../js/jquery-3.2.1.min.js"></script>
+<script type="text/javascript">
+    var rem = [];
+    function shift_select() {
+        $(".box label").click(function (e) {
+            rem.push($(".box label").index($(this)));
+            console.log("rem:" + rem);
+            if (e.shiftKey) {
+                var iMin = Math.min(rem[rem.length - 2], rem[rem.length - 1]);
+                var iMax = Math.max(rem[rem.length - 2], rem[rem.length - 1]);
+                console.log("iMin:" + iMin + ", iMax:" + iMax);
+                for (var i = iMin; i <= iMax; i++) {
+                    $(".box label:eq(" + i + ") input[type=checkbox]").prop("checked", true);
+                    //这边部分为逻辑代码，你可以根据需要来处理全中的div
+                    //$(".box div:eq("+i+")")这为选中的div
+                }
+            } else {
+                $(this).toggleClass("selected");
+            }
+        });
+    }
+    $(function () {
+        shift_select();
+    });
+
+    //与程序无关，是禁止鼠标选中文字。点选的时候容易选中文字 太讨厌 。
+    document.onselectstart = function (event) {
+        event = window.event || event;
+        event.returnValue = false;
+    }
+</script>
+</body>
+</html>
