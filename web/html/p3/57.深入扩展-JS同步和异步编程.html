@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深入扩展-JS同步和异步编程</title>
+</head>
+<body>
+在js中异步编程只有四种情况：定时器；所有的事件绑定；AJax读取数据的时候，一般设置为异步；回调函数。<br>
+<script>
+    /*var n = 0;
+     window.setTimeout(function () {
+     n++;
+     console.log(n);// 1(第二次输出)
+     },1000);
+     console.log(n);// 0(第一次输出)*/
+
+    // 每个浏览器对定时器都有一个等待时间，chrome：5-6ms，IE：10-13ms；如果设置时间小于这个最小时间的话，
+    // 设置的时间将不起作用。
+    /*var n = 0;
+     window.setTimeout(function () {
+     n++;
+     console.log(n);// 1(第二次输出)
+     },0);
+     console.log(n);// 0(第一次输出)*/
+
+    // 我们设置的等待时间不一定就是最后执行的时间，如果定时器之后还有其他事情在处理，
+    // 不管定时器的时候有没有到，定时器都不会执行
+    /*var n = 0;
+     window.setTimeout(function () {
+     n++;
+     console.log(n);// 不执行
+     },1000);
+     console.log(n);// 0(只执行一次)
+     while (1){
+     n++;
+     }
+     console.log(n);*/
+
+    var n = 0;
+    setTimeout(function () {
+        n += 2;// 7
+        console.log(n);// （第四次执行）
+    }, 100);
+    setTimeout(function () {
+        n += 5;
+        console.log(n);// 5（第三次执行）
+    }, 50);
+    console.log(n);// 0（第一次执行）
+    for (var i = 0; i < 10000000; i++) {
+    }
+    console.log(n);// 0（第二次执行）
+</script>
+</body>
+</html>
