@@ -1,4 +1,4 @@
-/**
+/*
  * Created by zxm on 2017-9-29.
  */
 var utils = {
