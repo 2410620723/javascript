@@ -38,5 +38,21 @@ var utils = {
         }
         document.documentElement[attr] = value;
         document.body[attr] = value;
+    },
+    getCss:function (curEle, attr) {
+        var value = null;
+        if ("getComputedStyle" in window) {
+            value = window.getComputedStyle(curEle, null)[attr];
+        } else {
+            if (attr === "opacity") {
+                value = curEle.currentStyle["filter"];// alpha(opacity=10)
+                var oReg = /^alpha\(opacity=(\d+(?:\.\d+)?)\)$/i;
+                value = oReg.test(value) ? oReg.exec(value)[1] / 100 : 1;
+            } else {
+                value = curEle.currentStyle[attr];
+            }
+        }
+        var reg = /^(-?\d+(\.\d+)?)(px|pt|rem|em)?$/i;
+        return reg.test(value) ? parseFloat(value) : value;
     }
 };
