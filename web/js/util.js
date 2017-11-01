@@ -168,6 +168,6 @@ var utils = (function () {
             }
             document.documentElement[attr] = value;
             document.body[attr] = value;
-        },
+        }
     }
 })();
