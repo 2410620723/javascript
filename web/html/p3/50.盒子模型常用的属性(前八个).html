@@ -22,6 +22,7 @@
 <body>
 <div id="box" class="test">
     &nbsp;&nbsp;中国共产党人进行着划时代的理论创新、实践创新，创立了习近平新时代中国特色社会主义思想，中国特色社会主义进入了新时代。
+    中国共产党人进行着划时代的理论创新、实践创新，创立了习近平新时代中国特色社会主义思想，中国特色社会主义进入了新时代。
 </div>
 <script>
     var oDiv = document.getElementById("box");
@@ -29,7 +30,7 @@
 
     //client系列：
 
-    //clientWidth/clientHeight：内容的宽度/高度 + 左右上下的边距（和内容溢出没有关系）。
+    //clientWidth/clientHeight：内容的宽度/高度 + 左右/上下的边距（和内容溢出没有关系）。
     //内容宽度/高度：我们设置的width/height这两个样式就是内容的宽度/高度；如果没有设置height值，
     // 容器的高度会根据内容的高度自己进行适应，这样获取的值就是真实的内容的值，如果设置固定的高度了，
     // 不管内容是多还是少，其实内容的高度都是设定的那个值。
@@ -38,7 +39,7 @@
     //clientLeft：左边框的宽度 clientTop：上边框的高度（border[Left/Top]/Height）
 
     //offset系列：
-    //offsetWidth/offsetHeight：clientWidth/offsetHeight+左右上下边框
+    //offsetWidth/offsetHeight：clientWidth/offsetHeight+左右/上下边框
     //offsetParent：当前元素的父级参照物
     //offsetLeft/offsetTop：当前元素的外边距距离父级参照物的内边宽偏移量
 
