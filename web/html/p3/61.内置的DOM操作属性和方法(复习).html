@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>内置的DOM操作属性和方法(复习)</title>
+</head>
+<body>
+获取页面中元素的方法:<br>
+document.getElementById(ID)；<br>
+context.getElementsByTagName(TagName):容器中子子孙孙辈份的所有标签名为TagName的都获取到了；<br>
+oDiv.getElementsByClassName(ClassName):IE6-8不支持；<br>
+document.getElementsByName():在IE浏览器中只对表单元素name起作用；<br>
+document.body<br>
+document.documentElement<br>
+context.querySelector()/context.querySelectorAll():在IE6-8中不支持，获取到的节点集合不存在DOM映射。<br>
+描述节点与节点之间关系的属性(在标准的浏览器中会把空格、换行当作文本节点处理)：<br>
+childNodes<br>
+children:在IE6-8中获取的结果和标准的浏览器获取的结果不一致<br>
+parentNode<br>
+previousSibling/previousSiblingElement<br>
+nextSibling/nextSiblingElement<br>
+lastChild/lastElement<br>
+firstChild/firstElement<br>
+DOM的增删改查：<br>
+createElement<br>
+document.createDocumentFragment<br>
+appendChild<br>
+insertBefore<br>
+cloneNode(true/false)<br>
+replaceChild<br>
+removeChild<br>
+(get/set/remove)Attribute<br>
+DOM盒子模型:<br>
+addClass/removeClass<br>
+prepend/append<br>
+insertBefore/insertAfter<br>
+getCss/setCss/setGroupCss(JQuery:css)<br>
+children<br>
+getElementByClass<br>
+prev/next/prevAll/nextAll/sibling/siblings<br>
+firstChild/lastChild<br>
+index<br>
+<div id="div1">
+    <span></span><span></span><span></span>
+    <p>
+        <span></span><span></span>
+    </p>
+</div>
+<script>
+    var oDiv = document.getElementById("div1");
+    console.log(oDiv.getElementsByTagName("span"));
+    console.log(oDiv.children);
+</script>
+</body>
+</html>
