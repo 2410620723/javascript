@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>设置元素的样式值(setCss)</title>
+    <style type="text/css">
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #box{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+
+</div>
+<script src="../../js/util.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var curLeft = utils.getCss(box,"left");
+    console.log(curLeft);
+    box.style.left = "100px";
+    /*给当前元素的某一个样式属性设置属性值（增加在行内样式上的）*/
+    /*function setCss(curEle, attr, value) {
+        // 如果是opacity
+        if (attr === "opacity") {
+            curEle["style"]["opacity"] = value;
+            curEle["style"]["filter"] = "alpha(opacity="+ value * 100 + ")";
+            return;
+        }
+        if (attr === "float") {
+            curEle["style"]["cssFloat"] = value;
+            curEle["style"]["styleFloat"] = value;
+            return;
+        }
+
+        // 如果某些属性传进来的属性值没有单位，我们需要添加一个默认的单位。
+        var reg = /^(width|height|top|left|bottom|right|((margin|padding)(Top|Bottom|Left|Right)?))$/;
+        if (reg.test(attr)) {
+            // 判断是否加单位
+            if (!isNaN(value)) {
+                // 是有效数字表示没有加单位
+                value += "px";
+            }
+        }
+        curEle["style"][attr] = value;
+    }*/
+    utils.setCss(box,"width",200);
+    utils.setCss(box,"opacity",0.2);
+    utils.setCss(box,"borderTop","10px solid #000");
+</script>
+</body>
+</html>
