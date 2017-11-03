@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>批量设置元素的样式值</title>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script>
+    var box = document.getElementById("box");
+    utils.setGroupCss(box,{
+        width: "200px",
+        height: "200px",
+        backgroundColor: "red",
+        opacity: 0.2,
+        float: "right"
+    });
+</script>
+</body>
+</html>
