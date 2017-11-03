@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getElementsByClassName的兼容处理</title>
+</head>
+<body>
+<div class="w1 w2 w3"></div>
+<div class="w2 w3"></div>
+<div class="w1 w2"></div>
+<div class="w1 w3"></div>
+<div class="w3"></div>
+<script src="../../js/util.js"></script>
+<script>
+    console.log(document.getElementsByClassName("w1"));
+    console.log(document.getElementsByClassName("w3   w1"));
+    //context:上下文，不传递的话，默认是document
+    /*function getElementsByClassName(className, context) {
+        var nodeArr = [];
+        context = context || document;
+        var classArr = className.replace(/(^ +| +$)/g,"").split(/ +/g);
+        var nodeList = context.getElementsByTagName("*");
+        for (var i = 0; i < nodeList.length; i++) {
+            var curNode = nodeList[i];
+            // 判断curNode.className是否包含classArr中的class类名
+            var isOk = true;// 我们假设curNode中包含了所有的样式
+            for (var j = 0; j < classArr.length; j++) {
+                var curName = classArr[j];
+                var reg = new RegExp("(^| +)" + curName + "( +|$)");
+                if (!reg.test(curNode.className)) {
+                    isOk = false;
+                    break;
+                }
+            }
+            if (isOk) {// 拿每个标签分别和所有的样式类名比较后，如果结果还是true，表示当前标签包含了所有的样式。
+                nodeArr.push(curNode);
+            }
+        }
+        return nodeArr;
+    }*/
+    console.log(utils.getElementsByClassName("w1  w2"));
+</script>
+</body>
+</html>
