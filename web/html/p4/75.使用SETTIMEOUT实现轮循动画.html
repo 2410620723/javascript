@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>使用setTimeout实现轮循动画(清除没用的定时器)</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var step = 5;
+    var timer = null;
+    function move() {
+        clearTimeout(timer);// 清除上次没用的定时器
+        var curLeft = utils.css(box,"left");
+        if (curLeft + step >= maxLeft) {// 边界判断
+            utils.css(box, "left", maxLeft);
+            return;
+        }
+        curLeft += step;
+        utils.css(box, "left", curLeft);
+        timer = setTimeout(move,10);// 使用递归思想实现动画
+    }
+    move();
+</script>
+</body>
+</html>
