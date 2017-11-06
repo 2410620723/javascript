@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现多方向匀速运动动画</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script>
+    function Linear(currentTime, begin, total, duration) {
+        return currentTime / duration * total + begin;
+    }
+    var box = document.getElementById("box");
+    var beginLeft = utils.css(box, "left"),
+        beginTop = utils.css(box, "top");
+    var targetLeft = 1000, targetTop = 500;
+    var totalLeft = targetLeft - beginLeft,
+        totalTop = targetTop - beginTop;
+    var duration = 1000, time = 0;
+    box.timer = setInterval(function () {
+        time += 10;
+        if (time >= duration) {
+            utils.css(box, {
+                left: targetLeft,
+                top: targetTop
+            });
+            clearTimeout(timer);
+            return;
+        }
+        var curLeft = Linear(time,beginLeft, totalLeft, duration);
+        var curTop = Linear(time,beginTop, totalTop, duration);
+        utils.css(box,{
+            left: curLeft,
+            top: curTop
+        });
+    },10);
+</script>
+</body>
+</html>
