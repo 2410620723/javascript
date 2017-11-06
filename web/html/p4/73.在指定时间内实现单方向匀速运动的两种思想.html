@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>在指定时间内实现单方向匀速运动的两种思想</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script>
+    /*// 实现一个匀速运动：1.当前位置加步长
+     var box = document.getElementById("box");
+     var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+     var duration = 2000, step = maxLeft / duration * 10;
+     var timer = setInterval(function () {
+     var curLeft = utils.css(box, "left");
+     if (curLeft >= maxLeft) {
+     clearInterval(timer);
+     return;
+     }
+     curLeft += step;
+     utils.css(box, "left", curLeft);
+     },10);*/
+
+    // 实现一个匀速运动：2.
+    function Linear(t, b, c, d) {
+        return t / d * c + b;
+    }
+    var box = document.getElementById("box");
+    var target = utils.win("clientWidth") - box.offsetWidth,
+        begin = utils.css(box, "left"), total = target - begin;
+    var duration = 2000, time = null;
+    var timer = setInterval(function () {
+        time += 10;
+        if (time > duration) {
+            utils.css(box, "left", target);
+            clearInterval(timer);
+            return;
+        }
+        var curPos = Linear(time,begin, total, duration);
+        utils.css(box,"left",curPos);
+    },10);
+</script>
+</body>
+</html>
