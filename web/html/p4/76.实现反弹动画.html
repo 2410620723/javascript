@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>实现反弹动画(作用域累积优化问题)</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 600px;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+
+        .btn {
+            position: absolute;
+            top: 200px;
+            left: 100px;
+            height: 50px;
+        }
+
+        .btn input {
+            display: inline-block;
+            margin-left: 50px;
+            outline: none;
+            width: 100px;
+            height: 50px;
+            border: 1px solid green;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<div class="btn">
+    <input type="button" value="向左" id="btnLeft">
+    <input type="button" value="向右" id="btnRight">
+</div>
+<script src="../../js/util.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var minLeft = 0, maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var step = 5;
+    var timer = null;
+    /*function move(target) { // target: 运动的目标位置
+        clearTimeout(timer);
+        var curLeft = utils.css(box, "left");
+        if (curLeft < target) {
+            // 向右走
+            if (curLeft + step >= target) {
+                utils.css(box, "left", target);
+                return;
+            }
+            curLeft += step;
+        } else if (curLeft > target) {
+            // 向左走
+            if (curLeft - step <= target) {
+                utils.css(box, "left", target);
+                return;
+            }
+            curLeft -= step;
+        } else {
+            // 不需要走
+            return;
+        }
+        utils.css(box, "left", curLeft);
+        setTimeout(function () {
+            move(target);// 弊端：会形成匿名函数作用域累加，比较消耗性能
+        }, 10);
+    }*/
+
+    // 优化
+    function move(target) {
+        _move();
+        function _move() {
+            clearTimeout(timer);
+            var curLeft = utils.css(box, "left");
+            if (curLeft < target) {
+                if (curLeft + step >= target) {
+                    utils.css(box, "left", target);
+                    return;
+                }
+                curLeft += step;
+            } else if (curLeft > target) {
+                if (curLeft - step <= target) {
+                    utils.css(box, "left", target);
+                    return;
+                }
+                curLeft -= step;
+            } else {
+                return;
+            }
+            utils.css(box, "left", curLeft);
+            setTimeout(_move,10);
+        }
+    }
+    document.getElementById("btnLeft").onclick = function () {
+        move(minLeft);
+    };
+    document.getElementById("btnRight").onclick = function () {
+        move(maxLeft);
+    };
+</script>
+</body>
+</html>
