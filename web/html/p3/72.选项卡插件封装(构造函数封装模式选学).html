@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡插件封装(构造函数封装模式选学)</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: "\5FAE\8F6F\96C5\9ED1", Helvetica, sans-serif;
+            font-size: 14px;
+            -webkit-user-select: none;
+        }
+
+        ul, li {
+            list-style: none;
+        }
+
+        .box {
+            width: 500px;
+            margin: 10px auto;
+        }
+
+        .box ul {
+            position: relative;
+            top: 1px;
+            /*overflow: hidden;*//*方法一：清楚子元素的浮动对父级元素的影响*/
+        }
+
+        .box ul:after {
+            /*浮动清楚*/
+            display: block;
+            content: "";
+            clear: none;
+        }
+
+        .box ul li {
+            float: left;
+            margin-left: 15px;
+            width: 100px;
+            height: 30px;
+            border: 1px solid green;
+            line-height: 30px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+        .box ul li.selected {
+            background-color: lightblue;
+            border-bottom-color: lightblue;
+        }
+
+        .box div {
+            display: none;
+            height: 150px;
+            line-height: 150px;
+            background-color: lightblue;
+            border: 1px solid green;
+            text-align: center;
+            clear: both; /*方法二：清楚哥哥元素的浮动对弟弟元素的影响*/
+        }
+
+        .box div.selected {
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box" id="tabFir">
+    <ul>
+        <li class="selected">选项卡一</li>
+        <li>选项卡二</li>
+        <li>选项卡三</li>
+    </ul>
+    <div class="selected">内容一</div>
+    <div>内容二</div>
+    <div>内容三</div>
+</div>
+<script>
+    var tabFir = document.getElementById("tabFir"), liList = tabFir.getElementsByTagName("li"),
+        divList = tabFir.getElementsByTagName("div");
+    function changeTab(n) {
+        for (var i = 0; i < liList.length; i++) {
+            liList[i].className = null;
+            divList[i].className = null;
+        }
+        liList[n].className = "selected";
+        divList[n].className = "selected";
+    }
+    // 1.最好的方式，使用自定义属性的方式：我们要操作（获取/修改）当前元素的某个值，但是不想受执行顺序的和环境的影响，
+    // 我们最简单的方式就是把其放在自己的自定义属性上即可。
+    /*for (var i = 0; i < liList.length; i++) {
+        liList[i].index = i;
+        liList[i].onclick = function () {
+            changeTab(this.index);
+        }
+    }*/
+    // 2.使用闭包，形成不销毁的三个作用域
+    /*for (var i = 0; i < liList.length; i++) {
+        ~function (i) {
+            liList[i].onclick = function () {
+                changeTab(i);
+            }
+        }(i);
+    }*/
+
+    for (var i = 0; i < liList.length; i++) {
+        liList[i].onclick = (function (i) {
+            return function () {
+                changeTab(i);
+            }
+        })(i);
+    }
+</script>
+</body>
+</html>
