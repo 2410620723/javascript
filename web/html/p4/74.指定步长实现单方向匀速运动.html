@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>指定步长实现单方向匀速运动(边界处理问题)</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script>
+    var box = document.getElementById("box");
+    var maxLeft = utils.win("clientWidth") - box.offsetWidth;
+    var step = 5;
+    var timer = setInterval(function () {
+        var curLeft = utils.css(box,"left");
+        if (curLeft + step >= maxLeft) {// 边界判断
+            utils.css(box, "left", maxLeft);
+            clearInterval(timer);
+            return;
+        }
+        curLeft += step;
+        utils.css(box, "left", curLeft);
+    },10);
+
+    // 问题：总距离 / 我们设定的步长不是一个整数，我们少走一步的话还差点到目标位置，
+    // 多走一步的话就会超出目标位置。
+
+</script>
+</body>
+</html>
