@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>动画库支持动画完成后的回调函数</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        #box {
+            position: absolute;
+            top: 0;
+            left: 0;
+            padding: 0;
+            width: 100px;
+            height: 100px;
+            background: lightblue;
+            opacity: 1;
+            filter: alpha(opacity=100);
+        }
+    </style>
+</head>
+<body>
+<div id="box"></div>
+<script src="../../js/util.js"></script>
+<script src="../../js/animation.js"></script>
+<script>
+    var box = document.getElementById("box");
+    myAnimate(box, {left: 1000, top: 500, opacity: 0.5}, 1000, function () {
+        utils.css(this,"background","red");
+    });
+</script>
+
+</body>
+</html>
