@@ -4,6 +4,7 @@
  */
 ~function () {
     var effect = {
+        // 匀速运动
         linear: function (currentTime, begin, total, duration) {
             return currentTime / duration * total + begin;
         }
