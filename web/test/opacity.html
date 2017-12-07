@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style type="text/css">
+        input[type="checkbox"]:checked+label:after{
+            content: '\2714';
+            background-color: #ff5757;
+            color: #FFF;
+            border-color: #ff5757;
+        }
+        input[type="checkbox"]{
+            display: none;
+        }
+        label:after{
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 18px;
+            height: 18px;
+            border: 1px solid #CCC;
+            box-sizing: border-box;
+            line-height: 18px;
+            text-align: center;
+            border-radius: 3px;
+            font-size: 14px;
+
+        }
+        label{
+            position: relative;
+            padding-left: 25px;
+            box-sizing: border-box;
+            line-height: 20px;
+            font-size: 14px;
+            height: 20px;
+        }
+        #top{
+            margin: 100px;
+        }
+        input[type="checkbox"]:checked ~ img{
+            transform: translateX(500px);
+        }
+        #img{
+            transition: all 1s;
+        }
+    </style>
+</head>
+<body>
+<div id="top">
+    <input type="checkbox" id="myCheck"/>
+    <label for="myCheck">嘘嘘嘘嘘嘘</label>
+    <img src="img/banner1.jpg" id="img" alt="" />
+    <input type="button" id="myButton">
+</div>
+<script>
+    var myCheck = document.getElementById("myCheck");
+    var myButton = document.getElementById("myButton");
+    myButton.onclick = function () {
+        console.log(myCheck.checked);
+    }
+</script>
+</body>
+</html>
