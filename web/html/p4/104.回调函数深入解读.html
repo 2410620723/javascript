@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>回调函数深入解读</title>
+</head>
+<body>
+<script>
+    // forEach 用来遍历数组每一项，在IE6-8下不支持
+    // 1)数组中有几项，那么传递进去的匿名回调函数就需要执行几次；
+    // 2)每次执行匿名函数的时候，还给其传递三个参数：数组中的当前项、当前项在数组中的索引、原数组；
+    // 3)理论上forEach方法是没有返回值的，仅仅是遍历数组的每一项，不对其进行修改，但是可以通过数组的索引进行修改。
+    /*var arr = [12,23,34,45,56];
+     var res = arr.forEach(function (item,index,input) {
+     console.log(item);
+     input[index] = item * 10;// 会改变原数组的值
+     });
+     console.log(res);
+     console.log(arr);// 会改变原数组的值*/
+
+    /*// map与forEach类似，都是用来遍历数组的，在IE6-8下不支持，但是map有返回值，return什么，就相当于把数组的这一项变成啥，但是不会影响原数组的值。
+    var arr = [12, 23, 34, 45, 56];
+    var res = arr.map(function (item) {
+        return item * 10;
+    });
+    console.log(res);
+    console.log(arr);*/
+
+    // forEach中的this是arr，但是匿名函数中的this是window
+    var arr = [12, 23, 34, 45, 56];
+    arr.forEach(function () {
+        console.log(this);
+    }, arr);// forEach与map都有第二个参数，第二个参数是将匿名函数中的this变成指定的变量
+
+    /*arr.forEach(function () {
+        console.log(this);
+    }.bind(arr));// 使用bind来修改this的指向，但是在IE6-8下不支持*/
+</script>
+</body>
+</html>
